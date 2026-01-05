@@ -17,9 +17,9 @@ namespace Entity.Models
         public Floor Floor { get; set; }    
 
         
-        public ICollection<RoomAssignment> Assignments { get; set; }    
+        public ICollection<RoomAssignment> Assignments { get; set; }   = new List<RoomAssignment>();
 
-        public ICollection<Issue> Issues { get; set; }
+        public ICollection<Issue> Issues { get; set; } = new List<Issue>();
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Entity.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Repository.EFCore.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,33 @@ namespace Repository.EFCore
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<User>()
+                .HasDiscriminator<string>("UserType")
+                .HasValue<Student>("Student")
+                .HasValue<Admin>("Admin")
+                .HasValue<LaundryMan>("LaundryMan");
+
+            builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new AdminConfiguration());
+            builder.ApplyConfiguration(new LaundryManConfiguration());
+            builder.ApplyConfiguration(new UserRoleConfiguration());
+
+
+
+
+            builder.Entity<Issue>()
+                .HasOne(i => i.User)
+                .WithMany(u => u.Issues)
+                .HasForeignKey(i => i.UserId)
+                .OnDelete(DeleteBehavior.Restrict); // Cascade yerine Restrict dedik!
+
+            builder.Entity<Issue>()
+                .HasOne(i => i.Room)
+                .WithMany(r => r.Issues)
+                .HasForeignKey(i => i.RoomId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
 
 

@@ -13,7 +13,7 @@ namespace Entity.Models
 
         public string BlockName { get; set; }
 
-        public ICollection<Floor> Floors { get; set; }
+        public ICollection<Floor> Floors { get; set; } = new List<Floor>();
 
     }
 }

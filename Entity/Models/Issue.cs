@@ -14,14 +14,14 @@ namespace Entity.Models
         public string? Description { get; set; }
         public IssueStatus Status { get; set; } = IssueStatus.Pending;
 
-        public ICollection<IssueVote> Votes { get; set; }
+        public ICollection<IssueVote> Votes { get; set; } = new List<IssueVote>();
         public int VoteCount => Votes?.Count ?? 0;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime LastUpdatedAt { get; set; }
 
         public string UserId { get; set; }  
-        public User User { get; set; }
+        public Student User { get; set; }
         public int RoomId { get; set; }
         public Room Room { get; set; }
 

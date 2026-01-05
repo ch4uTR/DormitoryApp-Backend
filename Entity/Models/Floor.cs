@@ -16,7 +16,7 @@ namespace Entity.Models
         public int BlockId { get; set; }
         public Block Block { get; set; }    
 
-        public ICollection<Room> Rooms { get; set; }
+        public ICollection<Room> Rooms { get; set; } = new List<Room>();
 
     }
 

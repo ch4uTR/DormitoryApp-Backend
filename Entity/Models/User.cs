@@ -7,17 +7,20 @@ using System.Threading.Tasks;
 
 namespace Entity.Models
 {
-    public class User : IdentityUser
+    public abstract class User : IdentityUser
     {
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public string? StudentNumber { get; set; }
+        public ICollection<Issue> Issues { get; set; } = new List<Issue>();
+        public ICollection<IssueVote> IssueVotes { get; set; } = new List<IssueVote>();
 
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime LastModifiedAt { get; set; }
 
-
-
-
+     
     }
+
+
 }
