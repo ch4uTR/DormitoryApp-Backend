@@ -1,4 +1,7 @@
+using Microsoft.Extensions.DependencyInjection;
 using WebAPI.Extensions;
+using AutoMapper;
+using Services.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,12 +10,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwagger();
 
 
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryManager();
+builder.Services.ConfigureServices();
+builder.Services.ConfigureIdentity();
+builder.Services.ConfigureJWT(builder.Configuration);
 
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<Services.Mapper.MappingProfile>();
+});
 
 
 var app = builder.Build();
