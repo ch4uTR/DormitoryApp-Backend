@@ -15,7 +15,7 @@ namespace WebAPI.Extensions
     {
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) =>
             services.AddDbContext<RepositoryContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
+                options.UseNpgsql(configuration.GetConnectionString("sqlConnection")));
 
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
             services.AddScoped<IRepositoryManager, RepositoryManager>();
