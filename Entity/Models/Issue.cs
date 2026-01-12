@@ -18,14 +18,15 @@ namespace Entity.Models
         public int VoteCount => Votes?.Count ?? 0;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime LastUpdatedAt { get; set; }
+        public DateTime?  LastUpdatedAt { get; set; }
 
         public string UserId { get; set; }  
-        public Student User { get; set; }
+        public User User { get; set; }
         public int RoomId { get; set; }
         public Room Room { get; set; }
 
 
+        public bool IsDeleted { get; set; } = false;
 
     }
 

@@ -17,10 +17,10 @@ namespace Entity.Models
         public int RoomId { get; set; }
         public Room Room { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.UtcNow;
         public DateTime? EndDate { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
 
 
 

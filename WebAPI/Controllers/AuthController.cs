@@ -1,4 +1,4 @@
-﻿using Entity.DTOs;
+﻿using Entity.DTOs.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 
@@ -6,7 +6,7 @@ namespace WebAPI.Controllers
 {
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;

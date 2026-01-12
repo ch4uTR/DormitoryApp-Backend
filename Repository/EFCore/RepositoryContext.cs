@@ -23,6 +23,9 @@ namespace Repository.EFCore
         public DbSet<RoomAssignment> RoomAssignments { get; set; }
         public DbSet<Issue> Issues { get; set; }
         public DbSet<IssueVote> IssueVotes { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<LaundrySlot> LaundrySlots { get; set; }
+        public DbSet<LaundryReservation> LaundryReservations { get; set; }
 
 
 
@@ -40,6 +43,9 @@ namespace Repository.EFCore
             builder.ApplyConfiguration(new AdminConfiguration());
             builder.ApplyConfiguration(new LaundryManConfiguration());
             builder.ApplyConfiguration(new UserRoleConfiguration());
+            builder.ApplyConfiguration(new BlockConfiguration());
+            builder.ApplyConfiguration(new FloorConfiguration());
+            builder.ApplyConfiguration(new RoomConfiguration());
 
 
 

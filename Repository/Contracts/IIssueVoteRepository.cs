@@ -9,5 +9,8 @@ namespace Repository.Contracts
 {
     public interface IIssueVoteRepository : IRepositoryBase<IssueVote>
     {
+        Task<IssueVote?> GetVoteAsync(int issueId, string userId, bool trackChanges);
+
+        Task<IEnumerable<IssueVote>> GetUserVotesByUserId(string userId, bool trackChanges);
     }
 }

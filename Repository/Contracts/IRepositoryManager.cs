@@ -15,9 +15,15 @@ namespace Repository.Contracts
         IIssueVoteRepository IssueVote { get; }
         IRoomAssignmentRepository RoomAssignment { get; }
         IRoomRepository Room { get; }
+        IAnnouncementRepository Announcement { get; }
+        ILaundrySlotRepository LaundrySlot { get; }
+        ILaundryReservationRepository LaundryReservation { get; }   
+
 
 
         void Save();
+
+        Task SaveAsync();
 
     }
 }

@@ -17,6 +17,9 @@ namespace Repository.EFCore
         private readonly Lazy<IIssueVoteRepository> _issueVoteRepository;
         private readonly Lazy<IRoomRepository> _roomRepository;
         private readonly Lazy<IRoomAssignmentRepository> _roomAssignmentRepository;
+        private readonly Lazy<IAnnouncementRepository> _announcementRepository;
+        private readonly Lazy<ILaundrySlotRepository> _laundrySlotRepository;
+        private readonly Lazy<ILaundryReservationRepository> _laundryReservationRepository;
 
 
 
@@ -30,6 +33,10 @@ namespace Repository.EFCore
             _issueVoteRepository = new Lazy<IIssueVoteRepository>(() => new IssueVoteRepository(_repositoryContext));
             _roomRepository = new Lazy<IRoomRepository>(() => new RoomRepository(_repositoryContext));
             _roomAssignmentRepository = new Lazy<IRoomAssignmentRepository>(() => new RoomAssignmentRepository(_repositoryContext));
+            _announcementRepository = new Lazy<IAnnouncementRepository>(() => new AnnouncementRepository(_repositoryContext));
+            _laundrySlotRepository = new Lazy<ILaundrySlotRepository>(() => new LaundrySlotRepository(_repositoryContext));
+            _laundryReservationRepository = new Lazy<ILaundryReservationRepository>(() => new LaundryReservationRepository(_repositoryContext));
+
         }   
 
 
@@ -39,8 +46,17 @@ namespace Repository.EFCore
         public IIssueVoteRepository IssueVote => _issueVoteRepository.Value;
         public IRoomRepository Room => _roomRepository.Value;
         public IRoomAssignmentRepository RoomAssignment => _roomAssignmentRepository.Value;
+        public IAnnouncementRepository Announcement => _announcementRepository.Value;
+        public ILaundrySlotRepository LaundrySlot => _laundrySlotRepository.Value;
+        public ILaundryReservationRepository LaundryReservation => _laundryReservationRepository.Value;
+
+
+
+
 
         public void Save() => _repositoryContext.SaveChanges();
+
+        public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
 
     }
 }

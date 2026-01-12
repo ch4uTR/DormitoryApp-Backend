@@ -1,4 +1,4 @@
-﻿using Entity.DTOs;
+﻿using Entity.DTOs.Auth;
 using Entity.Models;
 using Microsoft.AspNetCore.Identity;
 using System;

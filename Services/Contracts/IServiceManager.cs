@@ -9,6 +9,11 @@ namespace Services.Contracts
     public interface IServiceManager
     {
         IAuthService AuthService { get; }
+        IIssueService IssueService { get; }
+        IRoomAssignmentService RoomAssignmentService { get; }
+        IIssueVoteService VoteService { get; }
+        IAnnouncementService AnnouncementService { get; }
+        ILaundryService LaundryService { get; }
 
 
     }

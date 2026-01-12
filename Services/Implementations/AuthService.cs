@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Entity.DTOs;
+using Entity.DTOs.Auth;
 using Entity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -95,7 +95,9 @@ namespace Services.Implementations
 
             var authClaims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),               
+                new Claim(ClaimTypes.Email, user.Email ?? ""),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

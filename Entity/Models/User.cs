@@ -17,7 +17,7 @@ namespace Entity.Models
         public ICollection<IssueVote> IssueVotes { get; set; } = new List<IssueVote>();
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime LastModifiedAt { get; set; }
+        public DateTime? LastModifiedAt { get; set; }
 
      
     }

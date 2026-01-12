@@ -9,5 +9,8 @@ namespace Repository.Contracts
 {
     public interface IRoomRepository : IRepositoryBase<Room>
     {
+
+        Task<bool> IsRoomFull(int roomId);
+
     }
 }

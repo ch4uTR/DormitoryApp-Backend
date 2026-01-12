@@ -6,7 +6,7 @@ namespace WebAPI.Controllers
 {
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class MockController : ControllerBase
     {
 
