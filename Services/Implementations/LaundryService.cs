@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entity.DTOs.Laundry;
 using Entity.Models;
+using Microsoft.EntityFrameworkCore;
 using Repository.Contracts;
 using Services.Contracts;
 using System;
@@ -64,24 +65,34 @@ namespace Services.Implementations
 
         public async Task<LaundryReservationDto> CreateReservationAsync(string userId, CreateReservationDto createReservationDto)
         {
-            var slot = await _repositoryManager.LaundrySlot.GetByIdAsync(createReservationDto.SlotId, true);
 
-            if (slot == null) { throw new Exception($"Idsi: {createReservationDto.SlotId} olan slot bulunamadı!"); }
+            try
+            {
+                var slot = await _repositoryManager.LaundrySlot.GetByIdAsync(createReservationDto.SlotId, true);
 
-            if (slot.Status != SlotStatus.Open) { throw new Exception($"Idsi: {createReservationDto.SlotId} olan slot kapalı!"); }
+                if (slot == null) { throw new Exception($"Idsi: {createReservationDto.SlotId} olan slot bulunamadı!"); }
 
-            if (slot.ReservedCount >= slot.TotalCapacity) throw new Exception($"Idsi: {createReservationDto.SlotId} olan slot dolu!");
+                if (slot.Status != SlotStatus.Open) { throw new Exception($"Idsi: {createReservationDto.SlotId} olan slot kapalı!"); }
 
-            var reservation = _mapper.Map<LaundryReservation>(createReservationDto);
-            reservation.UserId = userId;
+                if (slot.ReservedCount >= slot.TotalCapacity) throw new Exception($"Idsi: {createReservationDto.SlotId} olan slot dolu!");
 
-            _repositoryManager.LaundryReservation.Create(reservation);
+                var reservation = _mapper.Map<LaundryReservation>(createReservationDto);
+                reservation.UserId = userId;
 
-            slot.ReservedCount++;
-            if (slot.ReservedCount == slot.TotalCapacity) slot.Status = SlotStatus.Full;
+                _repositoryManager.LaundryReservation.Create(reservation);
 
-            await _repositoryManager.SaveAsync();
-            return _mapper.Map<LaundryReservationDto>(reservation);
+                slot.ReservedCount++;
+                if (slot.ReservedCount == slot.TotalCapacity) slot.Status = SlotStatus.Full;
+
+                await _repositoryManager.SaveAsync();
+                return _mapper.Map<LaundryReservationDto>(reservation);
+            }
+
+            catch (DbUpdateConcurrencyException)
+            {
+                throw new Exception("Üzgünüz, bu slot siz seçiminizi onaylarken doldu. Lütfen başka bir slot seçin.");
+            }
+            
 
         }
 

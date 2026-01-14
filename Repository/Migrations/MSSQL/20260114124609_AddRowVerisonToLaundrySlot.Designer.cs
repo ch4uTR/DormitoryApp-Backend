@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.EFCore;
 
@@ -11,9 +12,11 @@ using Repository.EFCore;
 namespace Repository.Migrations.MSSQL
 {
     [DbContext(typeof(MsSqlRepositoryContext))]
-    partial class MsSqlRepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20260114124609_AddRowVerisonToLaundrySlot")]
+    partial class AddRowVerisonToLaundrySlot
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
