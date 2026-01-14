@@ -7804,8 +7804,8 @@ namespace Repository.Migrations.Postgres
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9892cb28-3924-4a82-9de3-1d1ab4a33bf3",
-                            CreatedAt = new DateTime(2026, 1, 14, 12, 46, 28, 182, DateTimeKind.Utc).AddTicks(3281),
+                            ConcurrencyStamp = "8ce380a8-d5d7-48b1-936d-8c4974339ea5",
+                            CreatedAt = new DateTime(2026, 1, 14, 13, 5, 25, 718, DateTimeKind.Utc).AddTicks(3658),
                             Email = "admin@yudorm.com",
                             EmailConfirmed = true,
                             FirstName = "Sistem",
@@ -7813,9 +7813,9 @@ namespace Repository.Migrations.Postgres
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@YUDORM.COM",
                             NormalizedUserName = "ADMIN@YUDORM.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEHxGsTDmIaf8/nB592DdoyFAUFxA/gy5MTvPVn72yWgW+3lMApC8SR78MXrR29teA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELXYgg1m1JA//IcPLjtRI4rOuB+PygxjX9plaewIHNCaJR/XwXTJ0+rcPBXLN+/Fyw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2affd4fb-79be-49c3-9cc8-de56fcecd006",
+                            SecurityStamp = "2b05e055-2dea-47f3-90ac-3ba8f989903f",
                             TwoFactorEnabled = false,
                             UserName = "admin@yudorm.com"
                         });
@@ -7832,8 +7832,8 @@ namespace Repository.Migrations.Postgres
                         {
                             Id = "9dcfe6a4-9f6d-42ad-9a9a-d85423c08468",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "640cac27-c240-44d2-b5b4-14938457d68b",
-                            CreatedAt = new DateTime(2026, 1, 14, 12, 46, 28, 257, DateTimeKind.Utc).AddTicks(9451),
+                            ConcurrencyStamp = "684e18eb-0ddc-40cd-8f52-7d9515bd2e64",
+                            CreatedAt = new DateTime(2026, 1, 14, 13, 5, 25, 789, DateTimeKind.Utc).AddTicks(4077),
                             Email = "laundryman@yudorm.com",
                             EmailConfirmed = true,
                             FirstName = "Laundry",
@@ -7841,9 +7841,9 @@ namespace Repository.Migrations.Postgres
                             LockoutEnabled = false,
                             NormalizedEmail = "LAUNDRYMAN@YUDORM.COM",
                             NormalizedUserName = "LAUNDRYMAN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDchSk+5fyagaMc0n2cNEqaFFrXWdo+fvBzTAvxxE6AyfW+jZf0jrM3GJMsuej7BiA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELhesrqmropGCM9L9iyaLP5TgfBpBpJKTi7aV1zNtA6JthhULo7mFil2lgGK7G2Rhw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "09f4e9cf-394e-44e6-a618-5b67ac67e29a",
+                            SecurityStamp = "7b1c91cb-3f4c-4bf0-801c-0ef6eb9a3e35",
                             TwoFactorEnabled = false,
                             UserName = "LAUNDRYMAN@YUDORM.COM"
                         });
