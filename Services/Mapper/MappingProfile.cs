@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Entity.DTOs;
 using Entity.DTOs.Announcement;
 using Entity.DTOs.Auth;
 using Entity.DTOs.Issue;
 using Entity.DTOs.Laundry;
+using Entity.DTOs.Notification;
 using Entity.DTOs.RoomAssignment;
 using Entity.Models;
 using System;
@@ -77,6 +77,10 @@ namespace Services.Mapper
             .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
 
             CreateMap<CreateReservationDto, LaundryReservation>();
+
+            /* -------------------- Notification Token MAPPING --------------------  */
+
+            CreateMap<NotificationToken, NotificationTokenDto>();
 
 
 

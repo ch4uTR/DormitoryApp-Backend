@@ -20,6 +20,7 @@ namespace Repository.EFCore
         private readonly Lazy<IAnnouncementRepository> _announcementRepository;
         private readonly Lazy<ILaundrySlotRepository> _laundrySlotRepository;
         private readonly Lazy<ILaundryReservationRepository> _laundryReservationRepository;
+        private readonly Lazy<INotificationTokenRepository> _notificationTokenRepository;
 
 
 
@@ -36,7 +37,7 @@ namespace Repository.EFCore
             _announcementRepository = new Lazy<IAnnouncementRepository>(() => new AnnouncementRepository(_repositoryContext));
             _laundrySlotRepository = new Lazy<ILaundrySlotRepository>(() => new LaundrySlotRepository(_repositoryContext));
             _laundryReservationRepository = new Lazy<ILaundryReservationRepository>(() => new LaundryReservationRepository(_repositoryContext));
-
+            _notificationTokenRepository = new Lazy<INotificationTokenRepository>(() => new NotificationTokenRepository(_repositoryContext));
         }   
 
 
@@ -50,9 +51,7 @@ namespace Repository.EFCore
         public ILaundrySlotRepository LaundrySlot => _laundrySlotRepository.Value;
         public ILaundryReservationRepository LaundryReservation => _laundryReservationRepository.Value;
 
-
-
-
+        public INotificationTokenRepository NotificationToken => _notificationTokenRepository.Value;
 
         public void Save() => _repositoryContext.SaveChanges();
 

@@ -26,6 +26,7 @@ namespace Repository.EFCore
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<LaundrySlot> LaundrySlots { get; set; }
         public DbSet<LaundryReservation> LaundryReservations { get; set; }
+        public DbSet<NotificationToken> NotificationTokens { get; set; }
 
 
 

@@ -18,6 +18,7 @@ namespace Repository.Contracts
         IAnnouncementRepository Announcement { get; }
         ILaundrySlotRepository LaundrySlot { get; }
         ILaundryReservationRepository LaundryReservation { get; }   
+        INotificationTokenRepository NotificationToken { get; }
 
 
 

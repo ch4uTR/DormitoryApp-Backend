@@ -658,6 +658,35 @@ namespace Repository.Migrations.MSSQL
                     b.ToTable("LaundrySlots");
                 });
 
+            modelBuilder.Entity("Entity.Models.NotificationToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeviceInfo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FcmToken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("NotificationTokens");
+                });
+
             modelBuilder.Entity("Entity.Models.Room", b =>
                 {
                     b.Property<int>("Id")
@@ -7806,8 +7835,8 @@ namespace Repository.Migrations.MSSQL
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3efb40ed-abfc-4006-adcd-6eb086da1abb",
-                            CreatedAt = new DateTime(2026, 1, 14, 13, 5, 12, 893, DateTimeKind.Utc).AddTicks(9438),
+                            ConcurrencyStamp = "0e39cd03-0abf-42d3-8961-9d7295a246c3",
+                            CreatedAt = new DateTime(2026, 1, 14, 17, 26, 30, 21, DateTimeKind.Utc).AddTicks(2655),
                             Email = "admin@yudorm.com",
                             EmailConfirmed = true,
                             FirstName = "Sistem",
@@ -7815,9 +7844,9 @@ namespace Repository.Migrations.MSSQL
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@YUDORM.COM",
                             NormalizedUserName = "ADMIN@YUDORM.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDjiAkVIV8tfOyGTGihYAChzqzTPuYOgnntAXPIY8K3ojIwy7KVMLpI2E7BdFhezsA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI7jzihjS+TxWkYNKN477FUBpHrCD38Yup4zHUws2cwk6oEdK0n1ARAUxyvzh96rNw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1e98243f-70e8-456b-922e-d2bccb9111a7",
+                            SecurityStamp = "786d3d30-8a5e-40cc-b766-98eb17ecd7f5",
                             TwoFactorEnabled = false,
                             UserName = "admin@yudorm.com"
                         });
@@ -7834,8 +7863,8 @@ namespace Repository.Migrations.MSSQL
                         {
                             Id = "9dcfe6a4-9f6d-42ad-9a9a-d85423c08468",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "222e1a89-f158-486f-869a-d368cfaf9eed",
-                            CreatedAt = new DateTime(2026, 1, 14, 13, 5, 12, 973, DateTimeKind.Utc).AddTicks(3942),
+                            ConcurrencyStamp = "3baa824d-1a0e-439b-84e1-dcc703853d7e",
+                            CreatedAt = new DateTime(2026, 1, 14, 17, 26, 30, 59, DateTimeKind.Utc).AddTicks(3308),
                             Email = "laundryman@yudorm.com",
                             EmailConfirmed = true,
                             FirstName = "Laundry",
@@ -7843,9 +7872,9 @@ namespace Repository.Migrations.MSSQL
                             LockoutEnabled = false,
                             NormalizedEmail = "LAUNDRYMAN@YUDORM.COM",
                             NormalizedUserName = "LAUNDRYMAN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEID1pSgscdJ96SyLSM6LgUKs93N6jXE+1FQi2Ve5s+Y+99CqQYfIfWfK4aBOrsFpcQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOrT3etih7boBhbQbAuqybrtmImigc4Wpr+wJSiAWC7MW0XxMyohnkgr527rTFbPgA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5111af19-cd47-4fda-94b9-abf9521adf91",
+                            SecurityStamp = "c1d05476-68af-4c15-8be6-ca237ba42b5c",
                             TwoFactorEnabled = false,
                             UserName = "LAUNDRYMAN@YUDORM.COM"
                         });
@@ -7935,6 +7964,17 @@ namespace Repository.Migrations.MSSQL
                         .IsRequired();
 
                     b.Navigation("Slot");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entity.Models.NotificationToken", b =>
+                {
+                    b.HasOne("Entity.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
