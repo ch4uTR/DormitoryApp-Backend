@@ -21,7 +21,7 @@ namespace Repository.EFCore.Configuration
                 new Admin
                 {
                     Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                    UserName = "admin",
+                    UserName = "admin@yudorm.com",
                     NormalizedUserName = "ADMIN",
                     Email = "admin@yudorm.com",
                     NormalizedEmail = "ADMIN@YUDORM.COM",
@@ -45,7 +45,7 @@ namespace Repository.EFCore.Configuration
                 new LaundryMan
                 {
                     Id = "9dcfe6a4-9f6d-42ad-9a9a-d85423c08468",
-                    UserName = "LaundryMan",
+                    UserName = "laundryman@yudorm.com",
                     NormalizedUserName = "LAUNDRYMAN",
                     Email = "laundryman@yudorm.com",
                     NormalizedEmail = "LAUNDRYMAN@YUDORM.COM",

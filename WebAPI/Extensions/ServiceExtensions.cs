@@ -13,9 +13,33 @@ namespace WebAPI.Extensions
 {
     public static class ServiceExtensions
     {
-        public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) =>
-        services.AddDbContext<RepositoryContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("sqlConnection")));
+        public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) {
+
+            var provider = configuration["DatabaseProvider"];
+            
+            services.AddDbContext<PostgresRepositoryContext>(options => {
+                options.UseNpgsql(configuration.GetConnectionString("PostgresConnection"), 
+                    x => x.MigrationsAssembly("Repository")); });
+            
+            services.AddDbContext<MsSqlRepositoryContext>(options =>
+            { options.UseSqlServer(configuration.GetConnectionString("SqlServerConnection"), 
+                x => x.MigrationsAssembly("Repository")); });
+
+
+            services.AddScoped<RepositoryContext>(providerService => { 
+
+            if (provider?.Equals("Postgres", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    return providerService.GetRequiredService<PostgresRepositoryContext>();
+                }
+
+            return providerService.GetRequiredService<MsSqlRepositoryContext>();
+
+
+            });
+
+        }
+        
 
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
             services.AddScoped<IRepositoryManager, RepositoryManager>();
@@ -28,8 +52,11 @@ namespace WebAPI.Extensions
 
         }
 
-        public static void ConfigureIdentity(this IServiceCollection services) {
-            services.AddIdentity<User, IdentityRole>(opt =>
+        public static void ConfigureIdentity(this IServiceCollection services,  IConfiguration configuration) {
+
+            var provider = configuration["DatabaseProvider"];
+
+            var builder = services.AddIdentity<User, IdentityRole>(opt =>
             {
                 opt.Password.RequireDigit = true;
                 opt.Password.RequireLowercase = true;
@@ -37,9 +64,18 @@ namespace WebAPI.Extensions
                 opt.Password.RequireNonAlphanumeric = true;
                 opt.Password.RequiredLength = 3;
 
-            })
-            .AddEntityFrameworkStores<RepositoryContext>()
-            .AddDefaultTokenProviders();
+            });
+
+            if (provider?.Equals("Postgres", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                builder.AddEntityFrameworkStores<PostgresRepositoryContext>();
+            }
+            else
+            {
+                builder.AddEntityFrameworkStores<MsSqlRepositoryContext>();
+            }
+           
+            builder.AddDefaultTokenProviders();
             }
 
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)

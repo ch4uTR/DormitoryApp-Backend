@@ -63,7 +63,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost("{id:int}")]
+        [HttpDelete("{id:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteIssue([FromRoute] int id)
         {

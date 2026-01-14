@@ -71,11 +71,15 @@ namespace Services.Implementations
             if (user != null && await _userManager.CheckPasswordAsync(user, logindDto.Password))
             {
                 var tokenString = await CreateToken(user);
+                var roles = await _userManager.GetRolesAsync(user);
 
                 return new TokenDto
                 {
                     AccessToken = tokenString,
                     ExpiresAt = DateTime.UtcNow.AddMinutes(60),
+                    UerId = user.Id,
+                    FullName = user.FullName,
+                    Role = roles.FirstOrDefault() ?? "Student"
                 };
             }
 

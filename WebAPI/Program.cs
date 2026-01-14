@@ -22,7 +22,7 @@ builder.Services.ConfigureSwagger();
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServices();
-builder.Services.ConfigureIdentity();
+builder.Services.ConfigureIdentity(builder.Configuration);
 builder.Services.ConfigureJWT(builder.Configuration);
 
 builder.Services.AddAutoMapper(cfg =>

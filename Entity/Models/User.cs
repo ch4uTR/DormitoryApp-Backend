@@ -13,6 +13,8 @@ namespace Entity.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        public string FullName => $"{FirstName} {LastName}";
+
         public ICollection<Issue> Issues { get; set; } = new List<Issue>();
         public ICollection<IssueVote> IssueVotes { get; set; } = new List<IssueVote>();
 

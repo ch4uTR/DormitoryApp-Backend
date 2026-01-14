@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Repository.EFCore
 {
-    public class RepositoryContext : IdentityDbContext<User>
+    public abstract class RepositoryContext : IdentityDbContext<User>
     {
 
-        public RepositoryContext(DbContextOptions options) : base(options) { }
+        protected RepositoryContext(DbContextOptions options) : base(options) { }
 
 
 
@@ -46,7 +46,6 @@ namespace Repository.EFCore
             builder.ApplyConfiguration(new BlockConfiguration());
             builder.ApplyConfiguration(new FloorConfiguration());
             builder.ApplyConfiguration(new RoomConfiguration());
-
 
 
 
