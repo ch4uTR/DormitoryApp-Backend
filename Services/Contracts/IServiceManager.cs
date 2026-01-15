@@ -14,6 +14,7 @@ namespace Services.Contracts
         IIssueVoteService VoteService { get; }
         IAnnouncementService AnnouncementService { get; }
         ILaundryService LaundryService { get; }
+        INotificationService NotificationService { get; }
 
 
     }

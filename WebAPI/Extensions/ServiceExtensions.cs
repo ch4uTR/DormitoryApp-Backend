@@ -1,4 +1,6 @@
 ﻿using Entity.Models;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -44,11 +46,35 @@ namespace WebAPI.Extensions
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
             services.AddScoped<IRepositoryManager, RepositoryManager>();
         
-        public static void ConfigureServices(this IServiceCollection services)
+        public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IAuthService, AuthService>();
 
             services.AddScoped<IServiceManager, ServiceManager>();
+
+            if (FirebaseApp.DefaultInstance == null)
+            {
+                var firebaseSection = configuration.GetSection("FirebaseJson");
+
+                var firebaseJson = System.Text.Json.JsonSerializer.Serialize(new
+                {
+                    type = firebaseSection["type"],
+                    project_id = firebaseSection["project_id"],
+                    private_key_id = firebaseSection["private_key_id"],
+                    private_key = firebaseSection["private_key"]?.Replace("\\n", "\n"),
+                    client_email = firebaseSection["client_email"],
+                    client_id = firebaseSection["client_id"],
+                    auth_uri = firebaseSection["auth_uri"],
+                    token_uri = firebaseSection["token_uri"],
+                    auth_provider_x509_cert_url = firebaseSection["auth_provider_x509_cert_url"],
+                    client_x509_cert_url = firebaseSection["client_x509_cert_url"]
+                });
+
+                FirebaseApp.Create(new AppOptions()
+                {
+                    Credential = GoogleCredential.FromJson(firebaseJson)
+                });
+            }
 
         }
 

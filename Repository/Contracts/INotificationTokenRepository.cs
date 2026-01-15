@@ -12,6 +12,7 @@ namespace Repository.Contracts
     {
 
         Task<IEnumerable<NotificationToken>> GetAllByUserId(string userId, bool trackChanges);
-        
+
+        Task<NotificationToken?> GetByFcmToken(string fcmToken);
     }
 }

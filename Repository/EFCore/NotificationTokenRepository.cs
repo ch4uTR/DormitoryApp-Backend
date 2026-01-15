@@ -16,10 +16,17 @@ namespace Repository.EFCore
         {
         }
 
+       
         public async Task<IEnumerable<NotificationToken>> GetAllByUserId(string userId, bool trackChanges)
         {
             var result = await FindByCondition(t => t.UserId.Equals(userId), trackChanges).ToListAsync();
             return result;
+        }
+
+        public async Task<NotificationToken?> GetByFcmToken(string fcmToken)
+        {
+            return await FindByCondition(t => t.FcmToken.Equals(fcmToken), trackChanges: true)
+                .SingleOrDefaultAsync();
         }
     }
 }

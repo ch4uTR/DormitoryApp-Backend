@@ -666,7 +666,7 @@ namespace Repository.Migrations.MSSQL
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("CreatedAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeviceInfo")
@@ -675,6 +675,9 @@ namespace Repository.Migrations.MSSQL
                     b.Property<string>("FcmToken")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastUpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -7835,8 +7838,8 @@ namespace Repository.Migrations.MSSQL
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0e39cd03-0abf-42d3-8961-9d7295a246c3",
-                            CreatedAt = new DateTime(2026, 1, 14, 17, 26, 30, 21, DateTimeKind.Utc).AddTicks(2655),
+                            ConcurrencyStamp = "a6ce3184-48de-4e5d-9292-ef21eaddfaf2",
+                            CreatedAt = new DateTime(2026, 1, 15, 7, 17, 46, 935, DateTimeKind.Utc).AddTicks(2807),
                             Email = "admin@yudorm.com",
                             EmailConfirmed = true,
                             FirstName = "Sistem",
@@ -7844,9 +7847,9 @@ namespace Repository.Migrations.MSSQL
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@YUDORM.COM",
                             NormalizedUserName = "ADMIN@YUDORM.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI7jzihjS+TxWkYNKN477FUBpHrCD38Yup4zHUws2cwk6oEdK0n1ARAUxyvzh96rNw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI4mxLQ4b+1VwcK5FDFT6rlxYlKF30Wqd58tyZO65VxUJ7kw631cKlhb7Kaxu5Eziw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "786d3d30-8a5e-40cc-b766-98eb17ecd7f5",
+                            SecurityStamp = "60e9c94d-7aa2-42c8-906a-61ee7d693733",
                             TwoFactorEnabled = false,
                             UserName = "admin@yudorm.com"
                         });
@@ -7863,8 +7866,8 @@ namespace Repository.Migrations.MSSQL
                         {
                             Id = "9dcfe6a4-9f6d-42ad-9a9a-d85423c08468",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3baa824d-1a0e-439b-84e1-dcc703853d7e",
-                            CreatedAt = new DateTime(2026, 1, 14, 17, 26, 30, 59, DateTimeKind.Utc).AddTicks(3308),
+                            ConcurrencyStamp = "b0832ce2-9c61-47c6-a7d8-8c5f0e5b66e2",
+                            CreatedAt = new DateTime(2026, 1, 15, 7, 17, 46, 972, DateTimeKind.Utc).AddTicks(4322),
                             Email = "laundryman@yudorm.com",
                             EmailConfirmed = true,
                             FirstName = "Laundry",
@@ -7872,9 +7875,9 @@ namespace Repository.Migrations.MSSQL
                             LockoutEnabled = false,
                             NormalizedEmail = "LAUNDRYMAN@YUDORM.COM",
                             NormalizedUserName = "LAUNDRYMAN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOrT3etih7boBhbQbAuqybrtmImigc4Wpr+wJSiAWC7MW0XxMyohnkgr527rTFbPgA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAQ5gZhIkrM+VqGqoIcimHT8h7x1cHGghIMtqWkEdFCqNnxzzpn5pEKawDMFfdD7XA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c1d05476-68af-4c15-8be6-ca237ba42b5c",
+                            SecurityStamp = "1c4ecc1e-4981-4aae-b5db-2c91c388d018",
                             TwoFactorEnabled = false,
                             UserName = "LAUNDRYMAN@YUDORM.COM"
                         });

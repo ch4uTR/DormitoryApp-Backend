@@ -21,7 +21,7 @@ builder.Services.ConfigureSwagger();
 
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryManager();
-builder.Services.ConfigureServices();
+builder.Services.ConfigureServices(builder.Configuration);
 builder.Services.ConfigureIdentity(builder.Configuration);
 builder.Services.ConfigureJWT(builder.Configuration);
 

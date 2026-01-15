@@ -21,6 +21,8 @@ namespace Services.Implementations
         private readonly Lazy<IIssueVoteService> _voteService;
         private readonly Lazy<IAnnouncementService> _announcementService;
         private readonly Lazy<ILaundryService> _laundryService;
+        private readonly Lazy<INotificationService> _notificationService;
+
         
 
         public ServiceManager(
@@ -48,6 +50,9 @@ namespace Services.Implementations
 
             _laundryService = new Lazy<ILaundryService>(
                 () => new LaundryService(repositoryManager, mapper));
+
+            _notificationService = new Lazy<INotificationService>(
+                () => new NotificationService(repositoryManager, mapper));
         }
         
 
@@ -59,5 +64,7 @@ namespace Services.Implementations
         public IAnnouncementService AnnouncementService => _announcementService.Value;
 
         public ILaundryService LaundryService => _laundryService.Value;
+
+        public INotificationService NotificationService => _notificationService.Value;
     }
 }

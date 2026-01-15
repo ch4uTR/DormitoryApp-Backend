@@ -81,6 +81,7 @@ namespace Services.Mapper
             /* -------------------- Notification Token MAPPING --------------------  */
 
             CreateMap<NotificationToken, NotificationTokenDto>();
+            CreateMap<NotificationTokenDto, NotificationToken>();
 
 
 
