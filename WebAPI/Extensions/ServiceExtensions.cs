@@ -15,6 +15,8 @@ namespace WebAPI.Extensions
 {
     public static class ServiceExtensions
     {
+
+        /* ------------------------------------------  S Q L   C O N T E X T  CONFIGURATION --------------------------------------*/
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) {
 
             var provider = configuration["DatabaseProvider"];
@@ -41,11 +43,21 @@ namespace WebAPI.Extensions
             });
 
         }
-        
+        /* ------------------------------------------  S Q L   C O N T E X T  CONFIGURATION --------------------------------------*/
 
+
+
+
+        /* ------------------------------------------  R E P O S I T O R Y  M A N A G E R  CONFIGURATION --------------------------------------*/
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
             services.AddScoped<IRepositoryManager, RepositoryManager>();
-        
+
+        /* ------------------------------------------  R E P O S I T O R Y  M A N A G E R  CONFIGURATION --------------------------------------*/
+
+
+
+
+        /* ------------------------------------------  S E R V I C E S  CONFIGURATION --------------------------------------*/
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IAuthService, AuthService>();
@@ -57,12 +69,18 @@ namespace WebAPI.Extensions
                
                 FirebaseApp.Create(new AppOptions()
                 {
-                    Credential = GoogleCredential.FromFile("firebase_service_account.json")
+                    Credential = GoogleCredential.FromFile("/etc/secrets/firebase_service_account.json")
                 });
             }
 
         }
 
+        /* ------------------------------------------  S E R V I C E S  CONFIGURATION --------------------------------------*/
+
+
+
+
+        /* ------------------------------------------  I D E N T I T Y  CONFIGURATION --------------------------------------*/
         public static void ConfigureIdentity(this IServiceCollection services,  IConfiguration configuration) {
 
             var provider = configuration["DatabaseProvider"];
@@ -89,6 +107,12 @@ namespace WebAPI.Extensions
             builder.AddDefaultTokenProviders();
             }
 
+        /* ------------------------------------------  I D E N T I T Y  CONFIGURATION --------------------------------------*/
+
+
+
+        /* ------------------------------------------  J S O N  W E B  T O K E N  CONFIGURATION --------------------------------------*/
+
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtSettings = configuration.GetSection("JwtSettings");
@@ -112,8 +136,14 @@ namespace WebAPI.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                 };
             });
-        } 
-    
+        }
+        /* ------------------------------------------  J S O N  W E B  T O K E N  CONFIGURATION --------------------------------------*/
+
+
+
+
+        /* ------------------------------------------ S W A G G E R  CONFIGURATION --------------------------------------*/
+
         public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(s =>
@@ -140,15 +170,22 @@ namespace WebAPI.Extensions
 
             });
         }
-        
+
+        /* ------------------------------------------ S W A G G E R  CONFIGURATION --------------------------------------*/
+
+
+
+
+        /* ------------------------------------------ M E D I A T R CONFIGURATION --------------------------------------*/
         public static void ConfigureMediatR(this IServiceCollection services)
         {
             services.AddMediatR(cfg =>
                 cfg.RegisterServicesFromAssembly(typeof(ServiceManager).Assembly));
             
         }
-    
-    
-    
+        /* ------------------------------------------ M E D I A T R CONFIGURATION --------------------------------------*/
+
+
+
     }
 }
