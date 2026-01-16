@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entity.Models;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Repository.Contracts;
@@ -29,12 +30,13 @@ namespace Services.Implementations
             IRepositoryManager repositoryManager,
             IMapper mapper,
             UserManager<User> userManager,
-            IConfiguration configuration
+            IConfiguration configuration,
+            IMediator mediator
             )
         {   
 
             _issueService = new Lazy<IIssueService>(
-                () => new IssueService(mapper, repositoryManager, userManager));
+                () => new IssueService(mapper, repositoryManager, userManager, mediator));
 
             _authService = new Lazy<IAuthService>(
                 () => new AuthService(userManager, mapper, configuration));
