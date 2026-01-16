@@ -44,7 +44,7 @@ namespace Services.Handlers
             switch (notification.Status)
             {
                 case IssueStatus.InProgress:
-                    title = "Yoldayız! 🏃‍♂️";
+                    title = "Yoldayız! 🏃‍";
                     body = $"{typeName} arızanla ilgilenmeye başladık. En kısa sürede çözeceğiz, beklemede kal! ✨";
                     break;
 
@@ -61,6 +61,9 @@ namespace Services.Handlers
                 notification.UserId,
                 new NotificationContentDto { Title = title, Body = body }
                 );
+
+            Console.WriteLine("IssueNotificationHandler az önce serviceManager ile sendNotificationTuUserAsync methodunu çağırdı");
+            Console.WriteLine($"*Bildirim--------------------\n{title}\n{body}");
         }
     }
 }
