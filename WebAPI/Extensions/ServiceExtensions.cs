@@ -155,7 +155,13 @@ namespace WebAPI.Extensions
 
             });
         }
-    
+        
+        public static void ConfigureMediatR(this IServiceCollection services)
+        {
+            services.AddMediatR(cfg =>
+                cfg.RegisterServicesFromAssembly(typeof(ServiceManager).Assembly));
+            
+        }
     
     
     

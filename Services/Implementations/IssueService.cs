@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Entity.DTOs.Issue;
 using Entity.Models;
+using Entity.Events;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Repository.Contracts;
 using Services.Contracts;
@@ -17,12 +19,13 @@ namespace Services.Implementations
         private readonly IMapper _mapper;
         private readonly IRepositoryManager _repositoryManager;
         private readonly UserManager<User> _userManager;
-
-        public IssueService(IMapper mapper, IRepositoryManager manager, UserManager<User> userManager)
+        private readonly IMediator _mediator;
+        public IssueService(IMapper mapper, IRepositoryManager manager, UserManager<User> userManager, IMediator mediator)
         {
             _mapper = mapper;
             _repositoryManager = manager;
             _userManager = userManager;
+            _mediator = mediator;   
         }
 
         public async  Task<IssueDto> CreateIssue(CreateIssueDto createIssue, string userId, bool isAdmin, string studentId)
@@ -89,6 +92,10 @@ namespace Services.Implementations
             issue.LastUpdatedAt = DateTime.UtcNow;
 
             await _repositoryManager.SaveAsync();
+
+            if (!issue.Status.Equals(IssueStatus.Closed))
+            {
+                await _mediator.Publish(new IssueStatusChangedEvent(issue.UserId, issue.Type, issue.Status, issue.LastUpdatedAt));            }
 
             return _mapper.Map<IssueDto>(issue);
         }
