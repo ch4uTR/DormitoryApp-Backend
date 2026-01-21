@@ -62,6 +62,17 @@ namespace Repository.EFCore
                 .HasForeignKey(i => i.RoomId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+
+            var slotBuilder = builder.Entity<LaundrySlot>();
+            if (Database.IsNpgsql())
+            {
+                slotBuilder.Property(s => s.RowVersion)
+                    .HasColumnName("xmin")
+                    .HasColumnType("xid")
+                    .ValueGeneratedOnAddOrUpdate()
+                    .IsConcurrencyToken();
+            }
+
         }
 
 
