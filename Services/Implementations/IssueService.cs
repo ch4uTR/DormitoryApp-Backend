@@ -83,10 +83,13 @@ namespace Services.Implementations
 
         }
 
-        public async Task<IssueDto> UpdateIssue(UpdateIssueDto updateIssueDto, int issueId)
+        public async Task<IssueDto> UpdateIssueStatus(UpdateIssueStatusDto updateIssueDto, int issueId)
         {
             var issue = await _repositoryManager.Issue.GetIssueByIdAsync(issueId, true);
             if (issue == null) { throw new Exception($"Idsi {issueId} olan bir issue bulunamadı!"); }
+
+            if (issue.Status == updateIssueDto.Status)
+                throw new Exception("Issue already in this status");
 
             issue.Status = updateIssueDto.Status;
             issue.LastUpdatedAt = DateTime.UtcNow;

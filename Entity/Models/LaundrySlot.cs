@@ -13,10 +13,12 @@ namespace Entity.Models
         public DateTime Date { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
+        public string TimeInterval => String.Concat($"{StartTime:hh\\:mm} - {EndTime:hh\\:mm}");
+
         public int TotalCapacity { get; set; } = 10;
         public int ReservedCount { get; set; } = 0;
 
-        [Timestamp]
+        [Timestamp] 
         public byte[] RowVersion { get; set; }
         public SlotStatus Status { get; set; } = SlotStatus.Open;
 

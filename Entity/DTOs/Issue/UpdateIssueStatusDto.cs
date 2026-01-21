@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.DTOs.Issue
 {
-    public record UpdateIssueDto
+    public record UpdateIssueStatusDto
     {
         public IssueStatus Status { get; init; }
     }

@@ -51,7 +51,7 @@ namespace Services.Implementations
                 () => new AnnouncementService(repositoryManager, mapper, userManager));
 
             _laundryService = new Lazy<ILaundryService>(
-                () => new LaundryService(repositoryManager, mapper));
+                () => new LaundryService(repositoryManager, mapper, mediator));
 
             _notificationService = new Lazy<INotificationService>(
                 () => new NotificationService(repositoryManager, mapper));

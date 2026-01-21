@@ -18,5 +18,5 @@ namespace Entity.Models
         public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
     }
 
-    public enum ReservationStatus { Pending, Completed, Cancelled }
+    public enum ReservationStatus { Pending, Confirmed, Completed, Cancelled }
 }

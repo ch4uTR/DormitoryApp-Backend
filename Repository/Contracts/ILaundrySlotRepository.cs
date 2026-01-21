@@ -11,6 +11,7 @@ namespace Repository.Contracts
     {
         Task<IEnumerable<LaundrySlot>> GetSlotsByDateAsync(DateTime date, bool trackChanges);
         Task<LaundrySlot?> GetByIdAsync(int id, bool trackChanges);
+        Task<IEnumerable<LaundrySlot>> GetSlotsWithin24HoursAsync(DateTime now, bool trackChanges);
 
     }
 }

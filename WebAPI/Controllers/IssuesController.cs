@@ -51,14 +51,14 @@ namespace WebAPI.Controllers
 
 
 
-        [HttpPut("{id:int}")]
+        [HttpPatch("{id:int}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateIssue([FromBody] UpdateIssueDto updateIssueDto, [FromRoute] int id)
+        public async Task<IActionResult> UpdateIssue([FromBody] UpdateIssueStatusDto updateIssueDto, [FromRoute] int id)
         {
-            //gelen veri teknik olarak işlenebilir mi??
-            if (updateIssueDto == null) { return BadRequest("Update Dto boş olamaz!"); }
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            var result = await _serviceManager.IssueService.UpdateIssue(updateIssueDto, id);
+            var result = await _serviceManager.IssueService.UpdateIssueStatus(updateIssueDto, id);
 
             return Ok(result);
         }

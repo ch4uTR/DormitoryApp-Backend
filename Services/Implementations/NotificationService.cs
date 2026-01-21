@@ -75,6 +75,7 @@ namespace Services.Implementations
 
                 var tasks = userTokens.Select(t => SendNotificationAsync(t.FcmToken, notificationContentDto));
                 await Task.WhenAll(tasks);
+                await SendToPushOver(notificationContentDto.Title, notificationContentDto.Body ?? "Tebrikler1!!");
                 return;
             }
                    
@@ -82,6 +83,26 @@ namespace Services.Implementations
             
 
                 
+        }
+
+
+        private async Task SendToPushOver(string title, string body)
+        {
+            using (var client = new HttpClient())
+            {
+                var parameters = new Dictionary<string, string>
+                {
+                    { "token", "a87aokpbk74igogt6g7w3vskxzsoha"},
+                    { "user" , "u5tfe2vux5wrdwu3kh357q41g9d2me"},
+                    { "title" ,title },
+                    {"message", body },
+                    {"sound", "magic" }
+
+                };
+
+                await client.PostAsync("https://api.pushover.net/1/messages.json", new FormUrlEncodedContent(parameters));
+                ;
+            }
         }
     }
 }

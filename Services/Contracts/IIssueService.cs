@@ -14,7 +14,7 @@ namespace Services.Contracts
 
         Task<IEnumerable<IssueDto>> GetAllIssues(string userId, bool isAdmin);
 
-        Task<IssueDto> UpdateIssue(UpdateIssueDto updateIssueDto, int issueId);
+        Task<IssueDto> UpdateIssueStatus(UpdateIssueStatusDto updateIssueDto, int issueId);
 
         Task<AdminIssueDto> DeleteIssue(int issueId);
 

@@ -35,7 +35,7 @@ namespace Services.Mapper
                 .ForMember(dest => dest.IsOwner, opt => opt.Ignore());
             CreateMap<Issue, AdminIssueDto>();
             CreateMap<CreateIssueDto, Issue>();
-            CreateMap<UpdateIssueDto, Issue>();
+            CreateMap<UpdateIssueStatusDto, Issue>();
 
 
             /* -------------------- RoomAssignment MAPPING --------------------  */
