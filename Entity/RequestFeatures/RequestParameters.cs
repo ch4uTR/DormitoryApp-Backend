@@ -12,7 +12,7 @@ namespace Entity.RequestFeatures
 		const int minPageSize = 10;
 
 		//Auto-implemented property
-        public int PageNumber { get; set; }
+		public int PageNumber { get; set; } = 1;
 
 		//Full-prop, logic var!
 		private int _pageSize;

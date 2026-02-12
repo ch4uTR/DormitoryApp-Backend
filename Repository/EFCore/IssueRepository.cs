@@ -42,11 +42,33 @@ namespace Repository.EFCore
 
         public async Task<PagedResponse<Issue>> GetAllIssuesWithDetails(IssueRequestParameter issueRequestParameter,bool trackChanges)
         {
-            var query = FindAll(trackChanges)
+            IQueryable<Issue> query = FindAll(trackChanges)
                 .Include(i => i.Room)
-                .Include(i => i.User)
-                .OrderByDescending(i => i.CreatedAt);
+                .Include(i => i.User);
+            //.OrderByDescending(i => i.CreatedAt);
 
+            if (issueRequestParameter.IssueTypes != null && issueRequestParameter.IssueTypes.Any())
+            {
+                query = query.Where(i => issueRequestParameter.IssueTypes.Contains(i.Type));
+            }
+
+            if (issueRequestParameter.IssueStatus != null)
+            {
+                query = query.Where(i => i.Status == issueRequestParameter.IssueStatus);
+            }
+
+            if (issueRequestParameter.MinCreatedAt.HasValue)
+            {
+                query = query.Where(i => i.CreatedAt >= issueRequestParameter.MinCreatedAt.Value);
+            }
+
+            if (issueRequestParameter.MaxCreatedAt.HasValue)
+            {
+                query = query.Where(i => i.CreatedAt <= issueRequestParameter.MaxCreatedAt.Value);
+            }
+
+
+            query = query.OrderByDescending(i => i.CreatedAt);  
             return await PagedResponse<Issue>.ToPagedResponse(query, issueRequestParameter.PageNumber, issueRequestParameter.PageSize);
 
         }
