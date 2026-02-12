@@ -212,5 +212,24 @@ namespace WebAPI.Extensions
 
 
 
+
+
+
+        /* ------------------------------------------ C O R S CONFIGURATION --------------------------------------*/
+
+        public static void ConfigureCors(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders("X-Pagination");
+                });
+            });
+        }
+
+        /* ------------------------------------------ C O R S CONFIGURATION --------------------------------------*/
+
+
     }
 }

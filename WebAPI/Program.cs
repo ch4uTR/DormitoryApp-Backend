@@ -26,6 +26,7 @@ builder.Services.ConfigureIdentity(builder.Configuration);
 builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.ConfigureMediatR();
 builder.Services.ConfigureRateLimiting();
+builder.Services.ConfigureCors();
 
 builder.Services.AddAutoMapper(cfg =>
 {
@@ -45,6 +46,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
