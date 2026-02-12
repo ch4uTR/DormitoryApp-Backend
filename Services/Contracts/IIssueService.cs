@@ -1,4 +1,6 @@
 ﻿using Entity.DTOs.Issue;
+using Entity.Models;
+using Entity.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace Services.Contracts
         Task<IssueDto> CreateIssue(CreateIssueDto createIssue, string userId, bool isAdmin, string studentId);
 
 
-        Task<IEnumerable<IssueDto>> GetAllIssues(string userId, bool isAdmin);
+        Task<PagedResponse<IssueDto>> GetAllIssues(IssueRequestParameter issueRequestParameter,string userId, bool isAdmin);
 
         Task<IssueDto> UpdateIssueStatus(UpdateIssueStatusDto updateIssueDto, int issueId);
 

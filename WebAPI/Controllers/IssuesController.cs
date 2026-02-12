@@ -1,14 +1,18 @@
 ﻿using Entity.DTOs.Issue;
+using Entity.RequestFeatures;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Services.Contracts;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     [Authorize] //Sadece token'ı olanlar!
+    [EnableRateLimiting("fixed")]
     public class IssuesController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -21,19 +25,22 @@ namespace WebAPI.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetAllIssues()
+        public async Task<IActionResult> GetAllIssues([FromQuery] IssueRequestParameter issueRequestParameter)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var isAdmin = User.IsInRole("Admin");
 
-            var issues = await _serviceManager.IssueService.GetAllIssues(userId, isAdmin);
+            var pagedResponse = await _serviceManager.IssueService.GetAllIssues(issueRequestParameter,userId, isAdmin);
 
-            return Ok(issues);
+            Response.Headers.Append("X-Pagination", JsonSerializer.Serialize(pagedResponse.MetaData));
+
+            return Ok(pagedResponse.Items);
         }
 
 
         [HttpPost]
+        
         public async Task<IActionResult> CreateIssue([FromBody] CreateIssueDto createIssueDto)
         {
          

@@ -1,4 +1,5 @@
 ﻿using Entity.Models;
+using Entity.RequestFeatures;
 using Microsoft.EntityFrameworkCore;
 using Repository.Contracts;
 using System;
@@ -31,20 +32,23 @@ namespace Repository.EFCore
         }
 
         
-        public async Task<IEnumerable<Issue>> GetIssuesByStudentIdAsync(string studentId, bool trackChanges)
+        public async Task<PagedResponse<Issue>> GetIssuesByStudentIdAsync(IssueRequestParameter issueRequestParameter,string studentId, bool trackChanges)
         {
-            var query = FindByCondition(i => i.UserId.Equals(studentId), trackChanges);
+            var query = FindByCondition(i => i.UserId.Equals(studentId), trackChanges)
+                .OrderByDescending(i => i.CreatedAt);
 
-            return await query.ToListAsync();
+            return await PagedResponse<Issue>.ToPagedResponse(query, issueRequestParameter.PageNumber, issueRequestParameter.PageSize);
         }
 
-        public async Task<IEnumerable<Issue>> GetAllIssuesWithDetails(bool trackChanges)
+        public async Task<PagedResponse<Issue>> GetAllIssuesWithDetails(IssueRequestParameter issueRequestParameter,bool trackChanges)
         {
-            return await FindAll(trackChanges)
+            var query = FindAll(trackChanges)
                 .Include(i => i.Room)
                 .Include(i => i.User)
-                .OrderByDescending(i => i.CreatedAt)
-                .ToListAsync();
+                .OrderByDescending(i => i.CreatedAt);
+
+            return await PagedResponse<Issue>.ToPagedResponse(query, issueRequestParameter.PageNumber, issueRequestParameter.PageSize);
+
         }
 
 

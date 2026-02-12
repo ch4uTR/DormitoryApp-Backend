@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Entity.RequestFeatures
+{
+    public abstract class RequestParameters
+    {
+		const int maxPageSize = 50;
+		const int minPageSize = 10;
+
+		//Auto-implemented property
+        public int PageNumber { get; set; }
+
+		//Full-prop, logic var!
+		private int _pageSize;
+
+		public int PageSize
+		{
+			get { return _pageSize; }
+			set { _pageSize = value < minPageSize ? minPageSize : value > maxPageSize ? maxPageSize : value; }
+		}
+
+
+	}
+}

@@ -3,6 +3,7 @@ using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -11,6 +12,7 @@ using Repository.EFCore;
 using Services.Contracts;
 using Services.Implementations;
 using System.Text;
+using System.Threading.RateLimiting;
 namespace WebAPI.Extensions
 {
     public static class ServiceExtensions
@@ -184,6 +186,29 @@ namespace WebAPI.Extensions
             
         }
         /* ------------------------------------------ M E D I A T R CONFIGURATION --------------------------------------*/
+
+
+
+
+        /* ------------------------------------------ R A T E  L I M I T I N G  CONFIGURATION --------------------------------------*/
+
+        public static void ConfigureRateLimiting(this IServiceCollection services)
+        {
+            services.AddRateLimiter(options =>
+            {
+                options.AddFixedWindowLimiter(policyName: "fixed", opt => 
+                {
+                    opt.PermitLimit = 10;
+                    opt.Window = TimeSpan.FromSeconds(60);
+                    opt.QueueLimit = 2;
+                    opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                });
+
+                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+            });
+        }
+
+        /* ------------------------------------------ R A T E  L I M I T I N G  CONFIGURATION --------------------------------------*/
 
 
 

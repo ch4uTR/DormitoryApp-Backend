@@ -25,6 +25,7 @@ builder.Services.ConfigureServices(builder.Configuration);
 builder.Services.ConfigureIdentity(builder.Configuration);
 builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.ConfigureMediatR();
+builder.Services.ConfigureRateLimiting();
 
 builder.Services.AddAutoMapper(cfg =>
 {
@@ -47,7 +48,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseRateLimiter();
 app.MapControllers();
 
 

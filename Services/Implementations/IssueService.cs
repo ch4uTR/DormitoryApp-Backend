@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Entity.DTOs.Issue;
-using Entity.Models;
 using Entity.Events;
+using Entity.Models;
+using Entity.RequestFeatures;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Repository.Contracts;
@@ -64,21 +65,23 @@ namespace Services.Implementations
 
         }
 
-        public async Task<IEnumerable<IssueDto>> GetAllIssues(string userId, bool isAdmin)
+        public async Task<PagedResponse<IssueDto>> GetAllIssues(IssueRequestParameter issueRequestParameter, string userId, bool isAdmin)
         {
 
-            IEnumerable<Issue> issues;
+            PagedResponse<Issue> pagedResponse;
 
-            issues = isAdmin ?
-                await _repositoryManager.Issue.GetAllIssuesWithDetails(false) :
-                await _repositoryManager.Issue.GetIssuesByStudentIdAsync(userId, false);
+            pagedResponse = isAdmin ?
+                await _repositoryManager.Issue.GetAllIssuesWithDetails(issueRequestParameter,false) :
+                await _repositoryManager.Issue.GetIssuesByStudentIdAsync(issueRequestParameter,userId, false);
               
-            return issues.Select(issue =>
+            var dtoItems =  pagedResponse.Items.Select(issue =>
             {
                 var dto = _mapper.Map<IssueDto>(issue);
 
                 return dto with { IsOwner = issue.UserId == userId };
             }).ToList();
+
+            return new PagedResponse<IssueDto>(dtoItems, pagedResponse.MetaData);
 
 
         }
